@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="theme-color" content="#3B82F6">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>AquaTrack — Sign In</title>
+    <link rel="manifest" href="/manifest.json">
+    <link rel="icon" href="/images/icon-192.png">
+    <link rel="apple-touch-icon" href="/images/icon-192.png">
+    <link rel="stylesheet" href="/css/styles.css">
+    <style>
+        .login-bg-orb {
+            position: fixed; border-radius: 50%; filter: blur(80px);
+            pointer-events: none; z-index: 0; animation: float 8s ease-in-out infinite;
+        }
+        .orb-1 { width: 500px; height: 500px; background: rgba(59,130,246,0.18); top: -200px; left: -150px; }
+        .orb-2 { width: 400px; height: 400px; background: rgba(139,92,246,0.14); bottom: -150px; right: -100px; animation-delay: -4s; }
+        @keyframes float {
+            0%,100% { transform: translateY(0); }
+            50%      { transform: translateY(-30px); }
+        }
+        .tab-switcher { display: flex; background: var(--bg-input); border-radius: var(--radius-pill); padding: 4px; margin-bottom: 24px; }
+        .tab-btn { flex: 1; padding: 9px; border: none; background: none; border-radius: var(--radius-pill);
+            font-family: inherit; font-size: 0.875rem; font-weight: 600; cursor: pointer;
+            color: var(--text-tertiary); transition: var(--transition); }
+        .tab-btn.active { background: var(--bg-secondary); color: var(--text-primary);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15); }
+        .form-panel { display: none; flex-direction: column; gap: 16px; }
+        .form-panel.active { display: flex; }
+        .error-msg { background: var(--red-lt); color: var(--red); border-radius: var(--radius-sm);
+            padding: 10px 14px; font-size: 0.85rem; font-weight: 500; display: none; }
+        .error-msg.show { display: block; }
+        .water-drop { font-size: 4rem; animation: drip 2.5s ease-in-out infinite; display: block; }
+        @keyframes drip {
+            0%,100% { transform: scaleY(1); }
+            50% { transform: scaleY(1.15) translateY(-4px); }
+        }
+    </style>
+</head>
+<body>
+    <div class="login-bg-orb orb-1"></div>
+    <div class="login-bg-orb orb-2"></div>
+
+    <div class="login-page">
+        <div class="login-card fade-in">
+            <div class="login-logo">
+                <div class="logo-icon-lg"><span class="water-drop">💧</span></div>
+                <h1>AquaTrack</h1>
+                <p>Family water dispenser manager</p>
+            </div>
+
+            <!-- Tab Switcher -->
+            <div class="tab-switcher">
+                <button class="tab-btn active" onclick="switchTab('login')">Sign In</button>
+                <button class="tab-btn" onclick="switchTab('register')">Register</button>
+            </div>
+
+            <!-- Error Message -->
+            <div class="error-msg" id="error-msg"></div>
+
+            <!-- Login Form -->
+            <div class="form-panel active" id="panel-login">
+                <div class="form-group">
+                    <label class="form-label" for="login-email">Email</label>
+                    <input type="email" id="login-email" class="form-control" placeholder="you@family.com" autocomplete="email">
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="login-password">Password</label>
+                    <input type="password" id="login-password" class="form-control" placeholder="••••••••" autocomplete="current-password">
+                </div>
+                <button class="btn btn-primary btn-lg" style="width:100%;justify-content:center;margin-top:4px" id="login-btn" onclick="handleLogin()">
+                    Sign In
+                </button>
+                <div class="divider">or</div>
+                <button class="btn btn-google" onclick="handleGoogle()">
+                    <svg width="18" height="18" viewBox="0 0 18 18"><path fill="#4285F4" d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844c-.209 1.125-.843 2.078-1.796 2.717v2.258h2.908c1.702-1.567 2.684-3.874 2.684-6.615z"/><path fill="#34A853" d="M9 18c2.43 0 4.467-.806 5.956-2.18l-2.908-2.259c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.711H.957v2.332A8.997 8.997 0 0 0 9 18z"/><path fill="#FBBC05" d="M3.964 10.71A5.41 5.41 0 0 1 3.682 9c0-.593.102-1.17.282-1.71V4.958H.957A8.996 8.996 0 0 0 0 9c0 1.452.348 2.827.957 4.042l3.007-2.332z"/><path fill="#EA4335" d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0A8.997 8.997 0 0 0 .957 4.958L3.964 6.29C4.672 4.163 6.656 3.58 9 3.58z"/></svg>
+                    Continue with Google
+                </button>
+            </div>
+
+            <!-- Register Form -->
+            <div class="form-panel" id="panel-register">
+                <div class="form-group">
+                    <label class="form-label" for="reg-name">Full Name</label>
+                    <input type="text" id="reg-name" class="form-control" placeholder="Bishoy" autocomplete="name">
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="reg-email">Email</label>
+                    <input type="email" id="reg-email" class="form-control" placeholder="you@family.com" autocomplete="email">
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="reg-password">Password</label>
+                    <input type="password" id="reg-password" class="form-control" placeholder="Min. 6 characters" autocomplete="new-password">
+                </div>
+                <button class="btn btn-primary btn-lg" style="width:100%;justify-content:center;margin-top:4px" id="reg-btn" onclick="handleRegister()">
+                    Create Account
+                </button>
+                <div class="divider">or</div>
+                <button class="btn btn-google" onclick="handleGoogle()">
+                    <svg width="18" height="18" viewBox="0 0 18 18"><path fill="#4285F4" d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844c-.209 1.125-.843 2.078-1.796 2.717v2.258h2.908c1.702-1.567 2.684-3.874 2.684-6.615z"/><path fill="#34A853" d="M9 18c2.43 0 4.467-.806 5.956-2.18l-2.908-2.259c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.711H.957v2.332A8.997 8.997 0 0 0 9 18z"/><path fill="#FBBC05" d="M3.964 10.71A5.41 5.41 0 0 1 3.682 9c0-.593.102-1.17.282-1.71V4.958H.957A8.996 8.996 0 0 0 0 9c0 1.452.348 2.827.957 4.042l3.007-2.332z"/><path fill="#EA4335" d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0A8.997 8.997 0 0 0 .957 4.958L3.964 6.29C4.672 4.163 6.656 3.58 9 3.58z"/></svg>
+                    Continue with Google
+                </button>
+            </div>
+        </div>
+
+        <!-- Theme toggle -->
+        <button class="theme-toggle" style="position:fixed;top:20px;right:20px;z-index:10" onclick="App.toggleTheme()">
+            <span class="theme-toggle-icon">☀️</span>
+        </button>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-storage-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-messaging-compat.js"></script>
+    <script src="/config/config.js"></script>
+    <script src="/firebase/firebase.js"></script>
+    <script src="/js/app.js"></script>
+    <script src="/js/auth.js"></script>
+    <script>
+        // Init Firebase & theme
+        const { db, auth, storage, messaging } = initFirebase();
+        App.initTheme();
+        Auth.init();
+
+        function switchTab(tab) {
+            document.querySelectorAll('.tab-btn').forEach((b,i) => b.classList.toggle('active', (i===0&&tab==='login')||(i===1&&tab==='register')));
+            document.getElementById('panel-login').classList.toggle('active', tab==='login');
+            document.getElementById('panel-register').classList.toggle('active', tab==='register');
+            clearError();
+        }
+
+        function showError(msg) {
+            const el = document.getElementById('error-msg');
+            el.textContent = msg; el.classList.add('show');
+        }
+        function clearError() { document.getElementById('error-msg').classList.remove('show'); }
+
+        function setLoading(btnId, loading) {
+            const btn = document.getElementById(btnId);
+            if (loading) { btn.disabled = true; btn.innerHTML = '<span class="spinner" style="width:18px;height:18px;border-width:2px"></span>'; }
+            else { btn.disabled = false; btn.textContent = btnId==='login-btn' ? 'Sign In' : 'Create Account'; }
+        }
+
+        async function handleLogin() {
+            clearError();
+            const email    = document.getElementById('login-email').value.trim();
+            const password = document.getElementById('login-password').value;
+            if (!email || !password) { showError('Please enter your email and password.'); return; }
+            setLoading('login-btn', true);
+            const result = await Auth.signInWithEmail(email, password);
+            if (!result.success) { showError(result.error); setLoading('login-btn', false); }
+        }
+
+        async function handleRegister() {
+            clearError();
+            const name     = document.getElementById('reg-name').value.trim();
+            const email    = document.getElementById('reg-email').value.trim();
+            const password = document.getElementById('reg-password').value;
+            if (!name || !email || !password) { showError('Please fill in all fields.'); return; }
+            if (password.length < 6) { showError('Password must be at least 6 characters.'); return; }
+            setLoading('reg-btn', true);
+            const result = await Auth.register(email, password, name);
+            if (!result.success) { showError(result.error); setLoading('reg-btn', false); }
+        }
+
+        async function handleGoogle() {
+            clearError();
+            const result = await Auth.signInWithGoogle();
+            if (!result.success) showError(result.error);
+        }
+
+        // Enter key support
+        document.addEventListener('keydown', e => {
+            if (e.key === 'Enter') {
+                if (document.getElementById('panel-login').classList.contains('active')) handleLogin();
+                else handleRegister();
+            }
+        });
+    </script>
+</body>
+</html>
