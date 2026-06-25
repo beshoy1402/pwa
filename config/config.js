@@ -6,16 +6,14 @@
  * NEVER hardcode keys elsewhere.
  */
 
-const CONFIG = {
-    // ── Firebase Credentials ──────────────────────────────────────────────────
-    // Get these from https://console.firebase.google.com → Project Settings → Your apps
-    FIREBASE_API_KEY: "YOUR_API_KEY",
-    AUTH_DOMAIN: "YOUR_PROJECT_ID.firebaseapp.com",
-    PROJECT_ID: "YOUR_PROJECT_ID",
-    STORAGE_BUCKET: "YOUR_PROJECT_ID.appspot.com",
-    MESSAGING_SENDER_ID: "YOUR_MESSAGING_SENDER_ID",
-    APP_ID: "YOUR_APP_ID",
-    MEASUREMENT_ID: "YOUR_MEASUREMENT_ID",   // Optional: Google Analytics
+const firebaseConfig = {
+  apiKey: "AIzaSyCtaWHtVjbgT9PlLZzSXj-me3cIPGp8bLA",
+  authDomain: "aquatrack-pwa-da70e.firebaseapp.com",
+  projectId: "aquatrack-pwa-da70e",
+  storageBucket: "aquatrack-pwa-da70e.firebasestorage.app",
+  messagingSenderId: "950302257086",
+  appId: "1:950302257086:web:9a4b53c79d399cf621d3ef",
+  measurementId: "G-9CVJD170RP"
 
     // ── Push Notifications ────────────────────────────────────────────────────
     // Get from Firebase Console → Project Settings → Cloud Messaging → Web Push certificates
