@@ -17,7 +17,7 @@ const firebaseConfig = {
 
     // ── Push Notifications ────────────────────────────────────────────────────
     // Get from Firebase Console → Project Settings → Cloud Messaging → Web Push certificates
-    VAPID_KEY: "YOUR_VAPID_KEY",
+    VAPID_KEY: "BAFm4mvRLAMY63YwOS9B8e_o8JobL8hXj78_i3u64lqRDjw7KfwEsFOXrdngMHev-rft_IIUe6_Q8AOGD98prlM",
 
     // ── App Identity ──────────────────────────────────────────────────────────
     APP_NAME: "AquaTrack",
